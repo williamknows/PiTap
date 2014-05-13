@@ -37,9 +37,10 @@ elif [ $1 = "mode2" ]; then
 	# Captures are rotated every x seconds, and each capture is given a filename based upon the Unix timestamp of when it was created.
 	# Used for future development work within the PiTap project.
 	# Create session-specific folder based upon tiemstamp.
-	mkdir $captureDirectory/$sessionTimestamp
+	timestampedDirectory=$sessionTimestamp-$RANDOM
+	mkdir $captureDirectory/$timestampedDirectory
 	# Start rotating captures in session-specific folder.
-	tcpdump -i bridge0 -w $captureDirectory/$sessionTimestamp-$RANDOM/dump-at-%s.pcapng -G 3600
+	tcpdump -i bridge0 -w $captureDirectory/$timestampedDirectory/dump-at-%s.pcapng -G 3600
 else
 	echo "PiTap has been configured to use an unknown mode!" >> $logFile
 fi
